@@ -3,10 +3,10 @@ var paths = require("blog/paths");
 exports.pathEndingAtRootMatchesSingleSlash  = function(test) {
     var navigator = paths.navigator(
         paths.end(function(parameters, callback) {
-            callback("root");
+            callback(null, "root");
         })
     );
-    navigator.navigate("/", function(result) {
+    navigator.navigate("/", function(err, result) {
         test.equal("root", result);
         test.done();
     });
@@ -15,10 +15,10 @@ exports.pathEndingAtRootMatchesSingleSlash  = function(test) {
 exports.pathEndingAtRootDoesntMatchPathOtherThanSingleSlash  = function(test) {
     var navigator = paths.navigator(
         paths.end(function(parameters, callback) {
-            callback("root");
+            callback(null, "root");
         })
     );
-    navigator.navigate("/blogs", function(result) {
+    navigator.navigate("/blogs", function(err, result) {
         test.equal(null, result);
         test.done();
     });
@@ -29,12 +29,12 @@ exports.regexPathMatcherAddsComponentToParameters  = function(test) {
     var navigator = paths.navigator(
         paths.then(digitParameter,
             paths.end(function(parameters, callback) {
-                callback(parameters);
+                callback(null, parameters);
             })
         )
     );
-    navigator.navigate("/2351", function(parameters) {
-        parameters.get(digitParameter, function(digit) {
+    navigator.navigate("/2351", function(err, parameters) {
+        parameters.get(digitParameter, function(err, digit) {
             test.equal("2351", digit);
             test.done();
         });
@@ -46,11 +46,11 @@ exports.regexPathMatcherDoesntMatchStringsNotMatchingRegex  = function(test) {
     var navigator = paths.navigator(
         paths.then(digitParameter,
             paths.end(function(parameters, callback) {
-                callback(parameters);
+                callback(null, parameters);
             })
         )
     );
-    navigator.navigate("/rock-and-roll", function(result) {
+    navigator.navigate("/rock-and-roll", function(err, result) {
         test.equal(null, result)
         test.done();
     });
@@ -61,22 +61,22 @@ exports.thenTriesMatchersInOrderUntilSuccess  = function(test) {
         paths.firstOf(
             paths.then(paths.parameters.regex(/1/),
                 paths.end(function(parameters, callback) {
-                    callback("1");
+                    callback(null, "1");
                 })
             ),
             paths.then(paths.parameters.regex(/2/),
                 paths.end(function(parameters, callback) {
-                    callback("2");
+                    callback(null, "2");
                 })
             ),
             paths.then(paths.parameters.regex(/2/),
                 paths.end(function(parameters, callback) {
-                    callback("3");
+                    callback(null, "3");
                 })
             )
         )
     );
-    navigator.navigate("/2", function(result) {
+    navigator.navigate("/2", function(err, result) {
         test.equal("2", result)
         test.done();
     });
@@ -84,17 +84,17 @@ exports.thenTriesMatchersInOrderUntilSuccess  = function(test) {
 
 exports.canConvertValuesFromParameters  = function(test) {
     var digitParameter = paths.parameters.convert(paths.parameters.regex(/[0-9]+/), function(value, callback) {
-        callback({matched: true, value: value * 2});
+        callback(null, {matched: true, value: value * 2});
     });
     var navigator = paths.navigator(
         paths.then(digitParameter,
             paths.end(function(parameters, callback) {
-                callback(parameters);
+                callback(null, parameters);
             })
         )
     );
-    navigator.navigate("/23", function(parameters) {
-        parameters.get(digitParameter, function(digit) {
+    navigator.navigate("/23", function(err, parameters) {
+        parameters.get(digitParameter, function(err, digit) {
             test.equal(46, digit);
             test.done();
         });
@@ -103,16 +103,16 @@ exports.canConvertValuesFromParameters  = function(test) {
 
 exports.valuesNotConvertedIfParameterDoesntMatch  = function(test) {
     var digitParameter = paths.parameters.convert(paths.parameters.regex(/[0-9]+/), function(value, callback) {
-        callback({matched: true, value: value * 2});
+        callback(null, {matched: true, value: value * 2});
     });
     var navigator = paths.navigator(
         paths.then(digitParameter,
             paths.end(function(parameters, callback) {
-                callback(parameters);
+                callback(null, parameters);
             })
         )
     );
-    navigator.navigate("/23a", function(result) {
+    navigator.navigate("/23a", function(err, result) {
         test.equal(null, result)
         test.done();
     });
@@ -122,11 +122,11 @@ exports.stringPathMatcherOnlyMatchesExactlyTheSameString = function(test) {
     var navigator = paths.navigator(
         paths.then("blog",
             paths.end(function(parameters, callback) {
-                callback("hooray!");
+                callback(null, "hooray!");
             })
         )
     );
-    navigator.navigate("/blog", function(result) {
+    navigator.navigate("/blog", function(err, result) {
         test.equal("hooray!", result)
         test.done();
     });
@@ -136,11 +136,11 @@ exports.stringPathMatcherDoesntMatchDifferentString = function(test) {
     var navigator = paths.navigator(
         paths.then("blog",
             paths.end(function(parameters, callback) {
-                callback("hooray!");
+                callback(null, "hooray!");
             })
         )
     );
-    navigator.navigate("/Blog", function(result) {
+    navigator.navigate("/Blog", function(err, result) {
         test.equal(null, result)
         test.done();
     });
@@ -152,8 +152,8 @@ exports.canComposeParameters = function(test) {
     var dayParameter = paths.parameters.regex(/[0-9]+/);
     
     var dateParameter = paths.parameters.composite(function(parameters, callback) {
-        parameters.getAll(yearParameter, monthParameter, dayParameter, function(year, month, day) {
-            callback({year: year, month: month, day: day});
+        parameters.getAll(yearParameter, monthParameter, dayParameter, function(err, year, month, day) {
+            callback(err, {year: year, month: month, day: day});
         });
     });
     
@@ -162,14 +162,14 @@ exports.canComposeParameters = function(test) {
             paths.then(monthParameter,
                 paths.then(dayParameter,
                     paths.end(function(parameters, callback) {
-                        callback(parameters);
+                        callback(null, parameters);
                     })
                 )
             )
         )
     );
-    navigator.navigate("/2011/06/30/", function(parameters) {
-        parameters.get(dateParameter, function(date) {
+    navigator.navigate("/2011/06/30/", function(err, parameters) {
+        parameters.get(dateParameter, function(err, date) {
             test.equal("2011", date.year);
             test.equal("06", date.month);
             test.equal("30", date.day);
