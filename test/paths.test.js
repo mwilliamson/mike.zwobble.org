@@ -71,6 +71,20 @@ exports.thenTriesMatchersInOrderUntilSuccess  = function(test) {
     });
 };
 
+exports.cannotBacktrack  = function(test) {
+    var navigator = paths.navigator(
+        paths.then("blogs"
+        ),
+        paths.then("blogs",
+            paths.end()
+        )
+    );
+    navigator.navigate("/blogs", function(err, result) {
+        test.ok(!result.matched);
+        test.done();
+    });
+};
+
 exports.canConvertValuesFromParameters  = function(test) {
     var digitParameter = paths.parameters.convert(paths.parameters.regex(/[0-9]+/), function(value, callback) {
         callback(null, {matched: true, value: value * 2});
