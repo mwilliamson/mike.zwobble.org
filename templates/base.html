@@ -4,15 +4,24 @@
   <head>
     <meta charset="utf-8" />
     <title>Mike's corner of the web</title>
-    <link rel="stylesheet" type="text/css" href="http://www.zwobble.org/media/css/style.css" title="Basic" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css" title="Basic" />
   </head>
 
   <body>
-    <div id="container">
-      <div id="left">
+    <div class="content">
+      <div class="site-heading">
+        <h1><a href="/">Mike's corner of the web</a></h1>
       </div>
-      <div id="main">
+      <div class="main">
         {{>body}}
+      </div>
+      <div class="sidebar">
+        <h2>Archives</h2>
+        <ul>
+          <li>July 2011</li>
+          <li>June 2011</li>
+          <li>April 2011</li>
+        </ul>
       </div>
     </div>
   </body>

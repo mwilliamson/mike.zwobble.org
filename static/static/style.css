@@ -1,0 +1,58 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    font-family: "dejavu sans", "bitstream vera sans", verdana, sans-serif;
+    line-height: 1.5;
+}
+
+.content {
+    margin: 0 auto;
+    width: 800px;
+}
+
+.site-heading {
+    padding: 0 0 1px 0;
+}
+
+.site-heading a, .site-heading a:visited {
+    color: #2C4766;
+    text-decoration: none;
+}
+
+.main {
+    float: left;
+    width: 600px;
+}
+
+.sidebar {
+    margin-left: 600px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #2C4766;
+    font-family: "nimbus roman no9 l", "freeserif", "times new roman", serif;
+    font-weight: normal;
+}
+
+p, ol, ul {
+    font-size: 0.8em;
+}
+
+.tip {
+    padding: 1em;
+    background-color: #f8f8f8;
+    margin: 1em 0;
+}
+
+.tip h3 {
+    margin: 0;
+}
+
+.tip p {
+    margin: 1em 0 0 0;
+}
+
+code {
+    font-size: 1.1em;
+    white-space: nowrap;
+}
