@@ -33,9 +33,21 @@ exports.canBindToFunctions = function(test) {
 exports.canBindFunctionWithDependencies = function(test) {
     var injector = inject.newInjector();
     injector.bind("user").toConstant({name: "Bob"});
-    injector.bind("username").toProvider("user", function(user, callback) {
+    injector.bind("username").toProvider(function(user, callback) {
         callback(null, user.name);
+    }, "user");
+    injector.get("username", function(err, username) {
+        test.equal("Bob", username);
+        test.done();
     });
+};
+
+exports.canBindSyncFunctionWithDependencies = function(test) {
+    var injector = inject.newInjector();
+    injector.bind("user").toConstant({name: "Bob"});
+    injector.bind("username").toSyncProvider(function(user) {
+        return user.name;
+    }, "user");
     injector.get("username", function(err, username) {
         test.equal("Bob", username);
         test.done();
@@ -44,9 +56,9 @@ exports.canBindFunctionWithDependencies = function(test) {
 
 exports.errorIfDependencyNotAvailable = function(test) {
     var injector = inject.newInjector();
-    injector.bind("username").toProvider("user", function(user, callback) {
+    injector.bind("username").toProvider(function(user, callback) {
         callback(null, user.name);
-    });
+    }, "user");
     injector.get("username", function(err, username) {
         test.equal("No binding for user", err.message.split("\n")[0]);
         test.done();
@@ -55,12 +67,12 @@ exports.errorIfDependencyNotAvailable = function(test) {
 
 exports.dependencyStackIsDescribedInErrors = function(test) {
     var injector = inject.newInjector();
-    injector.bind("username").toProvider("user", function(user, callback) {
+    injector.bind("username").toProvider(function(user, callback) {
         callback(null, user.name);
-    });
-    injector.bind("first-name").toProvider("username", function(name, callback) {
+    }, "user");
+    injector.bind("first-name").toProvider(function(name, callback) {
         callback(null, name.first);
-    });
+    }, "username");
     injector.get("first-name", function(err, username) {
         test.equal("No binding for user\nDependency stack:\n  1) user\n  2) username\n  3) first-name", err.message);
         test.done();
