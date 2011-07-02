@@ -270,3 +270,28 @@ exports.notMatchedIfDependencyOfCompositionIsUnavailable = function(test) {
     });
 };
 
+exports.usingControllerGivesValueThatCallsControllerWithSpecifiedParameterValues = function(test) {
+    var yearParameter = paths.parameters.regex(/[0-9]+/);
+    var monthParameter = paths.parameters.regex(/[0-9]+/);
+    
+    var controller = function(year, month, callback) {
+        callback(null, {year: year, month: month});
+    };
+    
+    var navigator = paths.navigator(
+        paths.then(yearParameter,
+            paths.then(monthParameter,
+                paths.useController(controller, yearParameter, monthParameter)
+            )
+        )
+    );
+    navigator.navigate("/2011/06", function(err, result) {
+        test.ok(result.matched);
+        result.value(function(err, value) {
+            test.equal("2011", value.year);
+            test.equal("06", value.month);
+            test.done();
+        });
+    });
+};
+
