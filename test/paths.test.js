@@ -188,6 +188,37 @@ exports.canComposeParameters = function(test) {
     });
 };
 
+exports.canPassArrayOfParametersToCompositeParameterBuilder = function(test) {
+    var yearParameter = paths.parameters.regex(/[0-9]+/);
+    var monthParameter = paths.parameters.regex(/[0-9]+/);
+    var dayParameter = paths.parameters.regex(/[0-9]+/);
+    
+    var dateParameter = paths.parameters.composite(
+        [yearParameter, monthParameter, dayParameter],
+        function(values, callback) {
+            callback(null, {matched: paths.parameters.matches.matched, value: {year: values[0], month: values[1], day: values[2]}});
+        }
+    );
+    
+    var navigator = paths.navigator(
+        paths.then(yearParameter,
+            paths.then(monthParameter,
+                paths.then(dayParameter,
+                    paths.end(dateParameter)
+                )
+            )
+        )
+    );
+    navigator.navigate("/2011/06/30/", function(err, result) {
+        test.ok(result.matched);
+        var date = result.value;
+        test.equal("2011", date.year);
+        test.equal("06", date.month);
+        test.equal("30", date.day);
+        test.done();
+    });
+};
+
 exports.errorsFromCompositionArePassedBack = function(test) {
     var yearParameter = paths.parameters.regex(/[0-9]+/);
     var monthParameter = paths.parameters.regex(/[0-9]+/);
