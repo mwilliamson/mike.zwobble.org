@@ -281,7 +281,7 @@ exports.usingControllerGivesValueThatCallsControllerWithSpecifiedParameterValues
     var navigator = paths.navigator(
         paths.then(yearParameter,
             paths.then(monthParameter,
-                paths.useController(controller, yearParameter, monthParameter)
+                paths.end(paths.useController(controller, yearParameter, monthParameter))
             )
         )
     );
@@ -295,3 +295,24 @@ exports.usingControllerGivesValueThatCallsControllerWithSpecifiedParameterValues
     });
 };
 
+exports.anythingMatchesAnyPathAndAddsRemainingPathToParameters = function(test) {
+    var yearParameter = paths.parameters.regex(/[0-9]+/);
+    
+    var controller = function(year, remainingPath, callback) {
+        callback(null, {year: year, remainingPath: remainingPath});
+    };
+    
+    var navigator = paths.navigator(
+        paths.then(yearParameter,
+            paths.anything(paths.useController(controller, yearParameter, paths.parameters.remainingPath))
+        )
+    );
+    navigator.navigate("/2011/06/first-post", function(err, result) {
+        test.ok(result.matched);
+        result.value(function(err, value) {
+            test.equal("2011", value.year);
+            test.equal("06/first-post", value.remainingPath);
+            test.done();
+        });
+    });
+};
