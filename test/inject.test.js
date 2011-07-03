@@ -86,3 +86,11 @@ exports.injectorIsBound = function(test) {
         test.done();
     });
 };
+
+exports.canDetermineIfKeyIsBound = function(test) {
+    var injector = inject.newInjector();
+    injector.bind("user").toConstant({});
+    test.ok(injector.isBound("user"));
+    test.ok(!injector.isBound("userRepository"));
+    test.done();
+};
