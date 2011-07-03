@@ -68,3 +68,10 @@ code {
     margin-bottom: 0;
 }
 
+.status-published {
+    color: #006600;
+}
+
+.status-unpublished {
+    color: #0000ff;
+}
