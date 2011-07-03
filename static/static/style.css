@@ -31,11 +31,12 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
     text-decoration: none;
 }
 
-.post h2 {
+.post h3 {
     margin-bottom: 0;
+    font-size: 1.5em;
 }
 
-.post .date {
+.date {
     color: #666;
     margin-top: 0;
 }
@@ -62,3 +63,8 @@ code {
     font-size: 1.1em;
     white-space: nowrap;
 }
+
+.admin-list h3 {
+    margin-bottom: 0;
+}
+

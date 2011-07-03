@@ -2,5 +2,20 @@
 
 {<main}
   <h2>Admin</h2>
+
+  <div class="admin-list">  
+    {#posts}
+      <div>
+        <h3>{#latestRevision}{title}{/latestRevision}</h3>
+        <p class="date">
+          {?isPublished}
+            Published: {publicationDate|date}
+          {:else}
+            Unpublished, last revision: {latestRevision.date|date}
+          {/isPublished}
+        </p>
+      </div>
+    {/posts}
+  </div>
 {/main}
 
