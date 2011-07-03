@@ -1,8 +1,7 @@
-{{#posts}}
-  <div class="post">
-    <h2>{{title}}</h2>
-    <p class="date">{{#formatDate}}publicationDate{{/formatDate}}</p>
-    
-    {{{bodyHtml}}}
-  </div>
-{{/posts}}
+{>base/}
+
+{<main}
+  {#posts}
+    {>"snippets/post"/}
+  {/posts}
+{/main}
