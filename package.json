@@ -6,7 +6,8 @@
         "nodeunit": "0.5.1",
         "mongodb": "0.9.6-3",
         "async": "0.1.9",
-        "mustache": "0.3.1-dev"
+        "mustache": "0.3.1-dev",
+        "dateformat": "1.0.1-1.2.3"
     }
 }
 
