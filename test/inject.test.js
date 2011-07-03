@@ -94,3 +94,41 @@ exports.canDetermineIfKeyIsBound = function(test) {
     test.ok(!injector.isBound("userRepository"));
     test.done();
 };
+
+exports.canMemoizeProviders = function(test) {
+    var numberOfCalls = 0;
+    var injector = inject.newInjector();
+    injector.bind("username").toSyncProvider(function() {
+        numberOfCalls += 1;
+        return "Bob";
+    }).memoize();
+    injector.get("username", function(err, username) {
+        test.equal("Bob", username);
+        test.equal(1, numberOfCalls);
+        injector.get("username", function(err, username) {
+            test.equal("Bob", username);
+            test.equal(1, numberOfCalls);
+            test.done();
+        });
+    });
+};
+
+exports.secondRequestForMemoizedDependencyWaitsForFirstRequestToFinish = function(test) {
+    var numberOfCalls = 0;
+    var injector = inject.newInjector();
+    var providerCallback;
+    injector.bind("username").toProvider(function(callback) {
+        numberOfCalls += 1;
+        providerCallback = callback;
+    }).memoize();
+    
+    injector.get("username", function() {});
+    
+    injector.get("username", function(err, username) {
+        test.equal("Bob", username);
+        test.equal(1, numberOfCalls);
+        test.done();
+    });
+    
+    providerCallback(null, "Bob");
+};
