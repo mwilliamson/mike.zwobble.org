@@ -89,7 +89,7 @@ exports.cannotBacktrack  = function(test) {
 
 exports.canConvertValuesFromParameters  = function(test) {
     var digitParameter = paths.parameters.convert(paths.parameters.regex(/[0-9]+/), function(value, callback) {
-        callback(null, {matched: paths.parameters.matches.matched, value: value * 2});
+        callback(null, {status: paths.parameters.status.ok, value: value * 2});
     });
     var navigator = paths.navigator(
         paths.then(digitParameter,
@@ -105,7 +105,7 @@ exports.canConvertValuesFromParameters  = function(test) {
 
 exports.valuesNotConvertedIfParameterDoesntMatch  = function(test) {
     var digitParameter = paths.parameters.convert(paths.parameters.regex(/[0-9]+/), function(value, callback) {
-        callback(null, {matched: paths.parameters.matches.matched, value: value * 2});
+        callback(null, {status: paths.parameters.status.ok, value: value * 2});
     });
     var navigator = paths.navigator(
         paths.then(digitParameter,
@@ -165,7 +165,7 @@ exports.canComposeParameters = function(test) {
     var dateParameter = paths.parameters.composite(
         yearParameter, monthParameter, dayParameter,
         function(year, month, day, callback) {
-            callback(null, {matched: paths.parameters.matches.matched, value: {year: year, month: month, day: day}});
+            callback(null, {status: paths.parameters.status.ok, value: {year: year, month: month, day: day}});
         }
     );
     
@@ -196,7 +196,7 @@ exports.canPassArrayOfParametersToCompositeParameterBuilder = function(test) {
     var dateParameter = paths.parameters.composite(
         [yearParameter, monthParameter, dayParameter],
         function(values, callback) {
-            callback(null, {matched: paths.parameters.matches.matched, value: {year: values[0], month: values[1], day: values[2]}});
+            callback(null, {status: paths.parameters.status.ok, value: {year: values[0], month: values[1], day: values[2]}});
         }
     );
     
@@ -255,7 +255,7 @@ exports.notMatchedIfDependencyOfCompositionIsUnavailable = function(test) {
     var dateParameter = paths.parameters.composite(
         yearParameter, monthParameter, dayParameter,
         function(year, month, day, callback) {
-            callback(null, {matched: paths.parameters.matches.matched, value: {year: year, month: month, day: day}});
+            callback(null, {status: paths.parameters.status.ok, value: {year: year, month: month, day: day}});
         }
     );
     
