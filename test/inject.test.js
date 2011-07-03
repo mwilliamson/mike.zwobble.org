@@ -42,6 +42,18 @@ exports.canBindFunctionWithDependencies = function(test) {
     });
 };
 
+exports.canCallUnboundFunctionsWithDependencies = function(test) {
+    var injector = inject.newInjector();
+    injector.bind("user").toConstant({name: "Bob"});
+    var username = function(user, callback) {
+        callback(null, user.name);
+    };
+    injector.callFunction(username, "user", function(err, username) {
+        test.equal("Bob", username);
+        test.done();
+    });
+};
+
 exports.canBindSyncFunctionWithDependencies = function(test) {
     var injector = inject.newInjector();
     injector.bind("user").toConstant({name: "Bob"});
