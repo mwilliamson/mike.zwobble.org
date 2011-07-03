@@ -1,4 +1,5 @@
-var paths = require("blog/paths");
+var paths = require("blog/paths"),
+    inject = require("blog/inject");
 
 exports.pathEndingAtRootMatchesSingleSlash  = function(test) {
     var navigator = paths.navigator(
@@ -314,5 +315,39 @@ exports.anythingMatchesAnyPathAndAddsRemainingPathToParameters = function(test) 
             test.equal("06/first-post", value.remainingPath);
             test.done();
         });
+    });
+};
+
+exports.canPassCustomParameterBuilder = function(test) {
+    var slugParameter = paths.parameters.regex(/[a-z\-]+/);
+    
+    var postParameter = function() {
+        return paths.parameters.composite(
+            slugParameter,
+            function(slug, callback) {
+                callback(null, {status: paths.parameters.status.ok, value: {slug: slug}});
+            }
+        );
+    };
+    
+    var navigator = paths.navigator(
+        paths.then(slugParameter,
+            paths.end(postParameter)
+        ),
+        function(parameter, callback) {
+            var isFunction = function(obj) {
+                return !!(obj && obj.constructor && obj.call && obj.apply);
+            }
+            if (isFunction(parameter)) {
+                callback(parameter());
+            } else {
+                callback(parameter);
+            }
+        }
+    );
+    navigator.navigate("/first-post", function(err, result) {
+        test.ok(result.matched);
+        test.equal("first-post", result.value.slug);
+        test.done();
     });
 };
