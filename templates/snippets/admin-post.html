@@ -1,0 +1,8 @@
+<h3>{#latestRevision}{title}{/latestRevision}</h3>
+<p class="date">
+  {?isPublished}
+    <span class="status-published">Published</span>: {publicationDate|date}
+  {:else}
+    <span class="status-unpublished">Unpublished</span>, last revision: {latestRevision.date|date}
+  {/isPublished}
+</p>
