@@ -3,9 +3,24 @@
 {<main}
   {#post}
     <div class="admin">
-      <h2>Edit {latestRevision.title}</h2>
+      <h2>Edit post</h2>
 
       {>"snippets/admin-post"/}
+      
+      <form action="." method="post">
+        <p>
+          Title: <br />
+          <input type="text" value="{latestRevision.title}" maxlength="255" size="50" />
+        </p>
+        
+        <p>
+          Body: <br />
+          <textarea rows="10" cols="50">{latestRevision.bodyHtml}</textarea>
+        </p>
+      
+        <input type="submit" value="Update post" />
+      </form>
+      
     </div>
   {/post}
 {/main}
