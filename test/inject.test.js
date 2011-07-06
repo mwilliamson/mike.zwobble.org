@@ -171,7 +171,22 @@ exports.canDelegateInjectionToAnotherInjector = function(test) {
     var subInjector = inject.newInjector();
     subInjector.bind("username").toConstant("Bob");
     
-    var injector = inject.newInjector(subInjector);
+    var injector = subInjector.extend();
+    
+    injector.get("username", function(err, username) {
+        test.equal("Bob", username);
+        test.done();
+    });
+};
+
+exports.bindingsDeclaredInOriginalInjectorCanUseBindingsInExtendedInjectorWhenUsingExtendedInjector = function(test) {
+    var subInjector = inject.newInjector();
+    subInjector.bind("username").toSyncProvider(function(user) {
+        return user.name;
+    }, "user");
+    
+    var injector = subInjector.extend();
+    injector.bind("user").toConstant({name: "Bob"});
     
     injector.get("username", function(err, username) {
         test.equal("Bob", username);
@@ -187,7 +202,7 @@ exports.memoizationOccursInInjectorWhereBindingIsDeclared = function(test) {
         return "Bob";
     }).memoize();
     
-    var injector = inject.newInjector(subInjector);
+    var injector = subInjector.extend();
     
     injector.get("username", function(err, username) {
         test.equal("Bob", username);
@@ -197,5 +212,20 @@ exports.memoizationOccursInInjectorWhereBindingIsDeclared = function(test) {
             test.equal(1, numberOfCalls);
             test.done();
         });
+    });
+};
+
+exports.bindingsDeclaredInOriginalInjectorCannotUseBindingsInExtendedInjectorWhenUsingOriginalInjector = function(test) {
+    var subInjector = inject.newInjector();
+    subInjector.bind("username").toSyncProvider(function(user) {
+        return user.name;
+    }, "user");
+    
+    var injector = subInjector.extend();
+    injector.bind("user").toConstant({name: "Bob"});
+    
+    subInjector.get("username", function(err, username) {
+        test.equal("No binding for user", err.message.split("\n")[0]);
+        test.done();
     });
 };
