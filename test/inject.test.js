@@ -166,3 +166,36 @@ var ignored = callIsNotMemoizedIfItReturnsAnError = function(test) {
         });
     });
 };
+
+exports.canDelegateInjectionToAnotherInjector = function(test) {
+    var subInjector = inject.newInjector();
+    subInjector.bind("username").toConstant("Bob");
+    
+    var injector = inject.newInjector(subInjector);
+    
+    injector.get("username", function(err, username) {
+        test.equal("Bob", username);
+        test.done();
+    });
+};
+
+exports.memoizationOccursInInjectorWhereBindingIsDeclared = function(test) {
+    var numberOfCalls = 0;
+    var subInjector = inject.newInjector();
+    subInjector.bind("username").toSyncProvider(function() {
+        numberOfCalls += 1;
+        return "Bob";
+    }).memoize();
+    
+    var injector = inject.newInjector(subInjector);
+    
+    injector.get("username", function(err, username) {
+        test.equal("Bob", username);
+        test.equal(1, numberOfCalls);
+        subInjector.get("username", function(err, username) {
+            test.equal("Bob", username);
+            test.equal(1, numberOfCalls);
+            test.done();
+        });
+    });
+};
