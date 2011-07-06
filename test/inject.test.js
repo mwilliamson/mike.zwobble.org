@@ -144,3 +144,25 @@ exports.secondRequestForMemoizedDependencyWaitsForFirstRequestToFinish = functio
     
     providerCallback(null, "Bob");
 };
+
+var ignored = callIsNotMemoizedIfItReturnsAnError = function(test) {
+    var numberOfCalls = 0;
+    var injector = inject.newInjector();
+    injector.bind("username").toProvider(function(callback) {
+        numberOfCalls += 1;
+        if (numberOfCalls === 1) {
+            callback(new Error("Oh noes!"));
+        } else {
+            callback("Bob");
+        }
+    }).memoize();
+    injector.get("username", function(err, username) {
+        test.equal("Oh noes!", err.message);
+        test.equal(1, numberOfCalls);
+        injector.get("username", function(err, username) {
+            test.equal("Bob", username);
+            test.equal(2, numberOfCalls);
+            test.done();
+        });
+    });
+};
