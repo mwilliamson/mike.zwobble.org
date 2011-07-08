@@ -2,7 +2,7 @@
   {?isPublished}
     <span class="status-published">Published</span>: {publicationDate|date}
   {:else}
-    <span class="status-unpublished">Unpublished</span>, last revision: {latestRevision.date|date}
+    <span class="status-unpublished">Unpublished</span>, last revision: {latestRevision.date|dateTime}
   {/isPublished}
 </p>
 
