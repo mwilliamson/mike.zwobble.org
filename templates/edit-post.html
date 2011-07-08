@@ -2,14 +2,39 @@
 
 {<main}
   {#post}
-    <div class="admin">
-      <h2>Edit post</h2>
+    <div id="admin-post" class="admin show-post">
+      <div id="admin-show-post" class="post">
+        <input type="button" id="edit-button" value="Edit post" />
+        <h3>{latestRevision.title}</h3>
+      
+        {>"snippets/admin-post-status"/}
+      
+        {latestRevision.bodyHtml|s}
+      </div>
+      
+      <div id="admin-edit-post" class="post">
+        <input type="button" id="cancel-edit-button" value="Never mind" />
+        <h3>Edit post</h3>
 
-      {>"snippets/admin-post-status"/}
+        {>"snippets/admin-post-status"/}
       
-      {>"snippets/edit-post-form"/}
-      
+        {>"snippets/edit-post-form"/}
+      </div>
     </div>
+    <script>
+    (function() {
+        var postElement = document.getElementById("admin-post");
+        var switchState = function(newState) {
+            postElement.className = postElement.className.split(/\s+/).slice(0, -1).join(" ") + " " + newState;
+        };
+        document.getElementById("edit-button").addEventListener("click", function() {
+            switchState("edit-post");
+        }, false);
+        document.getElementById("cancel-edit-button").addEventListener("click", function() {
+            switchState("show-post");
+        }, false);
+    })();
+    </script>
   {/post}
 {/main}
 
