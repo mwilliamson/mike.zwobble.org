@@ -4,7 +4,11 @@
   {#post}
     <div id="admin-post" class="admin show-post">
       <div id="admin-show-post" class="post">
-        <input type="button" id="edit-button" value="Edit post" />
+        <form method="post">
+          <input type="button" id="edit-button" value="Edit post" />
+          <input type="hidden" name="action" value="publish" />
+          <input type="submit" id="edit-button" value="Publish" />
+        </form>
         <h3>{latestRevision.title}</h3>
       
         {>"snippets/admin-post-status"/}
