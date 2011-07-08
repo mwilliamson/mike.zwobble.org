@@ -145,7 +145,7 @@ exports.secondRequestForMemoizedDependencyWaitsForFirstRequestToFinish = functio
     providerCallback(null, "Bob");
 };
 
-var ignored = callIsNotMemoizedIfItReturnsAnError = function(test) {
+exports.callIsNotMemoizedIfItReturnsAnError = function(test) {
     var numberOfCalls = 0;
     var injector = inject.newInjector();
     injector.bind("username").toProvider(function(callback) {
@@ -153,7 +153,7 @@ var ignored = callIsNotMemoizedIfItReturnsAnError = function(test) {
         if (numberOfCalls === 1) {
             callback(new Error("Oh noes!"));
         } else {
-            callback("Bob");
+            callback(null, "Bob");
         }
     }).memoize();
     injector.get("username", function(err, username) {
