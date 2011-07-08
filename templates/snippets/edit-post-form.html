@@ -8,6 +8,11 @@
     Body: <br />
     <textarea rows="10" cols="50" name="body">{latestRevision.bodyHtml}</textarea>
   </p>
+  
+  <p>
+    Topics: <br />
+    <input type="text" name="topics" size="50" value="{#Topics_stringValue topics=latestRevision.topics/}" />
+  </p>
 
   <input type="submit" value="Save post" />
 </form>
