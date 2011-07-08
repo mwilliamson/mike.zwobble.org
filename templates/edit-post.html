@@ -16,6 +16,8 @@
         {>"snippets/admin-post-status"/}
       
         {latestRevision.bodyHtml|s}
+        
+        <p class="topics">Topics: {#Topics_links topics=latestRevision.topics/}</p>
       </div>
       
       <div id="admin-edit-post" class="post">
