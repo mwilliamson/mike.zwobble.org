@@ -21,12 +21,7 @@
         {+main:page/}
       </div>
       <div class="sidebar">
-        <h2>Archives</h2>
-        <ul>
-          {#archives}
-            <li><a href="{#Url_monthArchive yearMonth=./}">{.|yearMonth} ({count})</a></li>
-          {/archives}
-        </ul>
+        {+sidebar/}
       </div>
     </div>
   </body>
