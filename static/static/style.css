@@ -77,7 +77,7 @@ code {
 }
 
 .status-unpublished {
-    color: #883300;
+    color: #900;
 }
 
 .show-post #admin-edit-post {
@@ -92,4 +92,13 @@ code {
     text-decoration: underline;
     cursor: pointer;
     color: #0000ff;
+}
+
+input[type=button] {
+    border: 0;
+    color: #fff;
+    background-color: #900;
+    padding: 0.3em 1em;
+    border-radius: 1em;
+    cursor: pointer;
 }
