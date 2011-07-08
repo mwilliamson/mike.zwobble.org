@@ -4,7 +4,7 @@
   {#post}
     <div id="admin-post" class="admin show-post">
       <div id="admin-show-post" class="post">
-        <input type="button" id="edit-button" value="Edit post" />
+        <p><span id="edit-button" class="action">Edit post</span></p>
         <h3>{latestRevision.title}</h3>
       
         {>"snippets/admin-post-status"/}
@@ -13,7 +13,7 @@
       </div>
       
       <div id="admin-edit-post" class="post">
-        <input type="button" id="cancel-edit-button" value="Never mind" />
+        <p><span id="cancel-edit-button" class="action">Never mind</span></p>
         <h3>Edit post</h3>
 
         {>"snippets/admin-post-status"/}
