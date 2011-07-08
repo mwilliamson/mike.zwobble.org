@@ -7,19 +7,7 @@
 
       {>"snippets/admin-post-status"/}
       
-      <form action="." method="post">
-        <p>
-          Title: <br />
-          <input type="text" value="{latestRevision.title}" maxlength="255" size="50" />
-        </p>
-        
-        <p>
-          Body: <br />
-          <textarea rows="10" cols="50">{latestRevision.bodyHtml}</textarea>
-        </p>
-      
-        <input type="submit" value="Update post" />
-      </form>
+      {>"snippets/edit-post-form"/}
       
     </div>
   {/post}

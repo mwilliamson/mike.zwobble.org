@@ -1,0 +1,13 @@
+<form action="." method="post">
+  <p>
+    Title: <br />
+    <input type="text" name="title" maxlength="255" size="50" value="{latestRevision.title}" />
+  </p>
+  
+  <p>
+    Body: <br />
+    <textarea rows="10" cols="50" name="body">{latestRevision.bodyHtml}</textarea>
+  </p>
+
+  <input type="submit" value="Save post" />
+</form>
