@@ -7,7 +7,9 @@
         <form method="post">
           <input type="button" id="edit-button" value="Edit post" />
           <input type="hidden" name="action" value="publish" />
-          <input type="submit" id="edit-button" value="Publish" />
+          {^isPublished}
+            <input type="submit" id="edit-button" value="Publish" />
+          {/isPublished}
         </form>
         <h3>{latestRevision.title}</h3>
       
