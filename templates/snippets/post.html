@@ -1,8 +1,8 @@
 <div class="post">
-  <h3><a href="{#Url_post post=./}">{title}</a></h3>
+  <h3><a href="{#Url_post post=./}">{latestRevision.title}</a></h3>
   <p class="date">{publicationDate|date}</p>
 
-  {bodyHtml|s}
+  {latestRevision.bodyHtml|s}
   
-  <p class="topics">Topics: {#Topics_links topics=topics/}</p>
+  <p class="topics">Topics: {#Topics_links topics=latestRevision.topics/}</p>
 </div>
