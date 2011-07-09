@@ -13,7 +13,7 @@
     Topics: <br />
     <select name="topics" multiple="multiple">
       {#topics}
-        <option value="{_id}">{name}</option>
+        <option value="{_id}" {?isSelected}selected="selected"{/isSelected}>{name}</option>
       {/topics}
     </select>
   </p>
