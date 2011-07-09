@@ -1,17 +1,21 @@
 <form action="." method="post">
   <p>
     Title: <br />
-    <input type="text" name="title" maxlength="255" size="50" value="{latestRevision.title}" />
+    <input type="text" name="title" maxlength="255" size="50" value="{post.latestRevision.title}" />
   </p>
   
   <p>
     Body: <br />
-    <textarea rows="10" cols="50" name="body">{latestRevision.bodyHtml}</textarea>
+    <textarea rows="10" cols="50" name="body">{post.latestRevision.bodyHtml}</textarea>
   </p>
   
   <p>
     Topics: <br />
-    <input type="text" name="topics" size="50" value="{#Topics_stringValue topics=latestRevision.topics/}" />
+    <select name="topics" multiple="multiple">
+      {#topics}
+        <option value="{_id}">{name}</option>
+      {/topics}
+    </select>
   </p>
 
   <input type="submit" value="Save post" />
