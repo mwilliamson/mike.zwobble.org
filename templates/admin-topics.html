@@ -1,0 +1,20 @@
+{>"base-admin"/}
+
+{<main}
+  <h2>Topics</h2>
+
+  <div class="admin">  
+    <h3>Add Topic</h3>
+    <form action="." method="post">
+      <p><input type="text" name="add-topic" /></p>
+      <p><input type="submit" value="Add topic" /></p>
+    </form>
+    <h3>Existing Topics</h3>
+    <ul>
+      {#topics}
+        <li>{name}</li>
+      {/topics}
+    </ul>
+  </div>
+{/main}
+
