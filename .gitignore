@@ -1,2 +1,3 @@
 node_modules
 mongo-data
+lib/blog/settings.js
