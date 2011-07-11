@@ -90,7 +90,7 @@ exports.cannotBacktrack  = function(test) {
 
 exports.canConvertValuesFromParameters  = function(test) {
     var digitParameter = paths.parameters.convert(paths.parameters.regex(/[0-9]+/), function(value, callback) {
-        callback(null, {status: paths.parameters.status.ok, value: value * 2});
+        callback.ok(value * 2);
     });
     var navigator = paths.navigator(
         paths.then(digitParameter,
@@ -121,7 +121,7 @@ exports.valuesNotConvertedIfParameterDoesntMatch  = function(test) {
 
 exports.conversionErrorsArePassedBack  = function(test) {
     var digitParameter = paths.parameters.convert(paths.parameters.regex(/[0-9]+/), function(value, callback) {
-        callback(new Error("Oh noes"));
+        callback.error(new Error("Oh noes"));
     });
     var navigator = paths.navigator(
         paths.then(digitParameter,
@@ -166,7 +166,7 @@ exports.canComposeParameters = function(test) {
     var dateParameter = paths.parameters.composite(
         yearParameter, monthParameter, dayParameter,
         function(year, month, day, callback) {
-            callback(null, {status: paths.parameters.status.ok, value: {year: year, month: month, day: day}});
+            callback.ok({year: year, month: month, day: day});
         }
     );
     
@@ -197,7 +197,7 @@ exports.canPassArrayOfParametersToCompositeParameterBuilder = function(test) {
     var dateParameter = paths.parameters.composite(
         [yearParameter, monthParameter, dayParameter],
         function(values, callback) {
-            callback(null, {status: paths.parameters.status.ok, value: {year: values[0], month: values[1], day: values[2]}});
+            callback.ok({year: values[0], month: values[1], day: values[2]});
         }
     );
     
@@ -229,7 +229,7 @@ exports.errorsFromCompositionArePassedBack = function(test) {
     var dateParameter = paths.parameters.composite(
         yearParameter, monthParameter, dayParameter,
         function(year, month, day, callback) {
-            callback(new Error("Oh noes"));
+            callback.error(new Error("Oh noes"));
         }
     );
     
@@ -256,7 +256,7 @@ exports.notMatchedIfDependencyOfCompositionIsUnavailable = function(test) {
     var dateParameter = paths.parameters.composite(
         yearParameter, monthParameter, dayParameter,
         function(year, month, day, callback) {
-            callback(null, {status: paths.parameters.status.ok, value: {year: year, month: month, day: day}});
+            callback.ok({year: year, month: month, day: day});
         }
     );
     
@@ -325,7 +325,7 @@ exports.canPassCustomParameterBuilder = function(test) {
         return paths.parameters.composite(
             slugParameter,
             function(slug, callback) {
-                callback(null, {status: paths.parameters.status.ok, value: {slug: slug}});
+                callback.ok({slug: slug});
             }
         );
     };
