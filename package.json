@@ -4,7 +4,7 @@
     "dependencies": {
         "connect": "1.5.1",
         "nodeunit": "0.5.1",
-        "mongodb": "0.9.6-3",
+        "mongodb": "0.9.6-7",
         "async": "0.1.9",
         "dust": "0.3.0",
         "dateformat": "1.0.1-1.2.3",
