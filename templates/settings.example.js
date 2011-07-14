@@ -5,9 +5,6 @@ exports.mongo = {
 };
 
 exports.httpPort = 8125;
-exports.httpsPort = 8126;
-exports.tlsKeyPath = "server.key";
-exports.tlsCertPath = "server.crt";
 
 exports.auth = {
     username: "admin",
