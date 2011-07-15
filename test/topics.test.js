@@ -92,7 +92,29 @@ exports.resultIsUndefinedIfCannotFindTopicWithSlug = function(test) {
     });
 };
 
-exports.canFetchTopicByIdFromCache = function(test) {
+exports.canFetchTopicByIdHexStringFromCache = function(test) {
+    var softwareTopic = topic("software");
+    var topicsInDatabase = [topic("hardware"), softwareTopic];
+    var numberOfCalls = 0;
+    var topicRepository = {
+        fetchAll: function(callback) {
+            numberOfCalls += 1;
+            callback(null, topicsInDatabase);
+        }
+    };
+    topics.cachedTopicRepository(topicRepository, function(err, cachedTopicRepository) {
+        cachedTopicRepository.fetchById(softwareTopic._id, function(err, fetchedTopic) {
+            test.equal(softwareTopic, fetchedTopic);
+            cachedTopicRepository.fetchById(softwareTopic._id, function(err, fetchedTopic) {
+                test.equal(softwareTopic, fetchedTopic);
+                test.equal(1, numberOfCalls);
+                test.done();
+            });
+        });
+    });
+};
+
+exports.canFetchTopicByObjectIdFromCache = function(test) {
     var softwareTopic = topic("software");
     var topicsInDatabase = [topic("hardware"), softwareTopic];
     var numberOfCalls = 0;
