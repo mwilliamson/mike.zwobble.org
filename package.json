@@ -8,7 +8,8 @@
         "async": "0.1.9",
         "dust": "0.3.0",
         "dateformat": "1.0.1-1.2.3",
-        "bcrypt": "0.2.3"
+        "bcrypt": "0.2.3",
+        "connect-gzip": "0.1.0"
     }
 }
 
