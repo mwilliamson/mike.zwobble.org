@@ -7,11 +7,18 @@ html, body {
     margin: 0;
     font-family: "dejavu sans", "bitstream vera sans", verdana, sans-serif;
     line-height: 1.5;
+    /*background-color: #CCE4FF;
+    background-color: #2C4766;*/
 }
 
 .content {
     margin: 0 auto;
-    width: 800px;
+    padding: 0 2em;
+    width: 820px;
+    overflow: auto;
+    background-color: white;
+    /*border: 3px solid  #2C4766;
+    border-width: 0 3px;*/
 }
 
 .site-heading {
@@ -24,7 +31,7 @@ html, body {
 }
 
 .sidebar {
-    margin-left: 600px;
+    margin-left: 620px;
 }
 
 h1, h2, h3, h4, h5, h6,
