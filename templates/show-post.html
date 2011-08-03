@@ -3,5 +3,17 @@
 {<main}
   {#post}
     {>"snippets/post"/}
+    
+    <h3>Comments</h3>
+    
+    {#comments}
+      <div class="comment">
+        <h4>Posted by {authorName}, {date|date}</h4>
+        {body}
+      </div>
+    {/comments}
+    {^comments}
+      <p>No comments</p>
+    {/comments}
   {/post}
 {/main}
