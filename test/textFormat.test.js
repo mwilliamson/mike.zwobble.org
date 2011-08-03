@@ -24,3 +24,9 @@ exports.outputIsHtmlEscaped = function(test) {
     test.equal('<p>Vic &amp; Bob&lt;script src=&quot;evil&quot;&gt;</p>', plainTextToHtml('Vic & Bob<script src="evil">'));
     test.done();
 };
+
+exports.newLinesOfDifferentFormatsAreConverted = function(test) {
+    test.equal("<p>Hello there.</p><p>Great article!</p>", plainTextToHtml("Hello there.\r\n\r\nGreat article!"));
+    test.equal("<p>Hello there.</p><p>Great article!</p>", plainTextToHtml("Hello there.\r\rGreat article!"));
+    test.done();
+};
