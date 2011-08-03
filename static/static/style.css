@@ -66,6 +66,26 @@ p, ol, ul {
     font-size: 0.9em;
 }
 
+#leave-comment input, #leave-comment textarea {
+    width: 400px;
+}
+
+#leave-comment textarea {
+    height: 200px;
+}
+
+#leave-comment {
+    padding-bottom: 2em;
+}
+
+#leave-comment h4 {
+    font-size: 1.1em;
+}
+
+#leave-comment .who-are-you {
+    display: none;
+}
+
 .tip {
     padding: 1em;
     background-color: #f8f8f8;

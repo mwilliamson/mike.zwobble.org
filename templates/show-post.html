@@ -15,5 +15,25 @@
     {^comments}
       <p>No comments</p>
     {/comments}
+    
+    <div id="leave-comment">
+    
+      <h4>Leave a comment</h4>
+      
+      <form action="{#Url_post post=./}#leave-comment" method="post">
+      
+        <div class="who-are-you">
+          Enter something if you're a bot: <br /> <input type="text" name="who-are-you" />
+        </div>
+       
+        <p>
+          <label>
+            Name: <br /> <input type="text" name="author-name" />
+          </label>
+        </p>
+    
+        <textarea name="body"></textarea>
+      </form>
+    </div>
   {/post}
 {/main}
