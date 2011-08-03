@@ -9,7 +9,7 @@
     {#comments}
       <div class="comment">
         <h4>Posted by {authorName}, {date|dateTime}</h4>
-        {body}
+        {body|plainTextToHtml|s}
       </div>
     {/comments}
     {^comments}
