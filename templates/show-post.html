@@ -6,50 +6,20 @@
     
     <h3>Comments</h3>
     
-    {#comments}
-      <div class="comment">
-        <h4>Posted by {authorName}, {date|dateTime}</h4>
-        {body|plainTextToHtml|s}
-      </div>
-    {/comments}
-    {^comments}
-      <p>No comments</p>
-    {/comments}
-    
-    <div id="leave-comment">
-    
-      <h4>Leave a comment</h4>
-      
-      <form action="{#Url_post post=./}#leave-comment" method="post">
-      
-        <div class="who-are-you">
-          Enter something if you're a bot: <br /> <input type="text" name="who-are-you" />
-        </div>
-       
-        <p>
-          <label>
-            Name: <br /> <input type="text" name="author-name" />
-          </label>
-        </p>
-        <p>
-          <label>
-            E-mail address (not displayed): <br /> <input type="email" name="email-address" />
-          </label>
-        </p>
-        <p>
-          <label>
-            Website (optional): <br /> <input type="text" name="website" />
-          </label>
-        </p>
-    
-        <p>
-          <label>
-            Comments: <br /> <textarea name="body"></textarea>
-          </label>
-        </p>
-        
-        <input type="submit" value="Leave comment" class="leave-comment-submit" />
-      </form>
-    </div>
+    <input type="hidden" id="disqus-identifier" value="{#Url_post post=./}" />
+    <input type="hidden" id="disqus-url" value="http://mike.zwobble.org{#Url_post post=./}" />
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = "mike-zwobble";
+        var disqus_identifier = document.getElementById("disqus-identifier").value;
+        var disqus_url = document.getElementById("disqus-url").value;
+
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   {/post}
 {/main}
