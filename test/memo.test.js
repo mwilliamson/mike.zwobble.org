@@ -69,3 +69,21 @@ exports.secondRequestForMemoizationWaitsForFirstRequestToMemoizeValue = function
     
     continueCallback(null, "Budget Meeting");
 };
+
+exports.canClearMemoizedValue = function(test) {
+    var numberOfCalls = 0;
+    var memoized = memo.async(function(callback) {
+        numberOfCalls += 1;
+        callback(null, "Budget Meeting " + numberOfCalls);
+    });
+    memoized(function(err, value) {
+        test.equal("Budget Meeting 1", value);
+        test.equal(1, numberOfCalls);
+        memoized.clear();
+        memoized(function(err, value) {
+            test.equal("Budget Meeting 2", value);
+            test.equal(2, numberOfCalls);
+            test.done();
+        });
+    });
+};
