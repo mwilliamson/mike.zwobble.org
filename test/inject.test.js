@@ -125,6 +125,19 @@ exports.canMemoizeProviders = function(test) {
     });
 };
 
+exports.canMemoizeProvidersWithArugments = function(test) {
+    var numberOfCalls = 0;
+    var injector = inject.newInjector();
+    injector.bind("user").toConstant({name: "Bob"});
+    injector.bind("username").toProvider(function(user, callback) {
+        callback(null, user.name);
+    }, "user").memoize();
+    injector.get("username", function(err, username) {
+        test.equal("Bob", username);
+        test.done();
+    });
+};
+
 exports.secondRequestForMemoizedDependencyWaitsForFirstRequestToFinish = function(test) {
     var numberOfCalls = 0;
     var injector = inject.newInjector();
