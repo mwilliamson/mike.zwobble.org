@@ -26,10 +26,11 @@
             {latestRevision.bodyHtml|s}
           </div>
         </content>
-    
-        {#topics}
-          <category term="{name}" />
-        {/topics}
+        {#latestRevision}
+          {#topics}
+            <category term="{#Topic_name topic=./}" />
+          {/topics}
+        {/latestRevision}
       </entry>
     {/posts}
   </feed>
