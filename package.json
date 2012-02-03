@@ -3,13 +3,15 @@
     "version": "0.1.0",
     "dependencies": {
         "connect": "1.5.1",
-        "nodeunit": "0.5.1",
-        "mongodb": "0.9.6-7",
-        "async": "0.1.9",
-        "dust": "0.3.0",
+        "mongodb": "0.9.8-5",
+        "async": "0.1.15",
+        "dust": "git://github.com/caolan/dustjs.git#b8a49b4ce405fe9fd9465df40d02c07476b35671",
         "dateformat": "1.0.1-1.2.3",
-        "bcrypt": "0.2.3",
+        "bcrypt": "0.5.0",
         "connect-gzip": "0.1.0"
+    },
+    "devDependencies": {
+        "nodeunit": "0.6.4"
     }
 }
 

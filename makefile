@@ -4,5 +4,5 @@ start-server:
 	node lib/blog/main.js
 
 test:
-	NODE_PATH=lib nodeunit `find test -type d`
+	NODE_PATH=lib node_modules/.bin/nodeunit `find test -type d`
 
