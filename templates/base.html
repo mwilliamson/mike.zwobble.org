@@ -4,9 +4,11 @@
   <head>
     <meta charset="utf-8" />
     <title>
-      {?title}
-        {title} &ndash; 
-      {/title}
+      {#page}
+        {?title}
+          {title} &ndash; 
+        {/title}
+      {/page}
       Mike's corner of the web
     </title>
     <link rel="stylesheet" type="text/css" href="/static/style.css" title="Basic" />
