@@ -14,7 +14,7 @@ html, body {
 .content {
     margin: 0 auto;
     padding: 0 2em;
-    width: 820px;
+    width: 890px;
     overflow: auto;
     background-color: white;
     /*border: 3px solid  #2C4766;
@@ -27,11 +27,11 @@ html, body {
 
 .main {
     float: left;
-    width: 600px;
+    width: 670px;
 }
 
 .sidebar {
-    margin-left: 620px;
+    margin-left: 690px;
 }
 
 h1, h2, h3, h4, h5, h6,
@@ -62,7 +62,7 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
     color: #666;
 }
 
-p, ol, ul {
+p, ol, ul, pre {
     font-size: 0.9em;
 }
 
@@ -80,9 +80,13 @@ p, ol, ul {
     margin: 1em 0 0 0;
 }
 
-code {
-    font-size: 1.1em;
-    white-space: nowrap;
+pre, code {
+    font-family: Consolas, "DejaVu Sans Mono", "Bitstream Vera Sans Mono" ,monospace;
+    background-color: #E6F2FF;
+}
+
+pre {
+    padding: 0.5em 1em;
 }
 
 input[type=button], input[type=submit] {
