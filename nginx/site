@@ -1,0 +1,31 @@
+server {
+	listen   80; ## listen for ipv4
+	listen   [::]:80; ## listen for ipv6
+
+	server_name  mike.zwobble.org;
+
+	access_log  /var/log/nginx/mike.zwobble.org.access.log;
+
+	root   /var/www/mike.zwobble.org;
+
+	location / {
+		expires	0;
+		try_files $uri $uri/index.html $uri/index.atom =404;
+	}
+
+	location /static {
+		expires	max;
+	}
+	
+	location ~ /index.html$ {
+		rewrite ^(.*/)index.html$ $1 permanent;
+	}
+
+        location ~ /index.atom$ {
+                rewrite ^(.*/)index.atom$ $1 permanent;
+        }
+
+        location /blog/feeds/latest_posts/ {
+                rewrite . /feed/ permanent;
+        }
+}
