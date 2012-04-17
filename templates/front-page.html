@@ -4,4 +4,18 @@
   {#posts}
     {>"snippets/post"/}
   {/posts}
+  {?previousPageLink}
+    <div class="previous-page">
+      <a href="{previousPageLink}">
+        Newer posts
+      </a>
+    </div>
+  {/previousPageLink}
+  {?nextPageLink}
+    <div class="next-page">
+      <a href="{nextPageLink}">
+        Older posts
+      </a>
+    </div>
+  {/nextPageLink}
 {/main}
