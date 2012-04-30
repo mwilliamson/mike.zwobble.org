@@ -62,7 +62,7 @@ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
     color: #666;
 }
 
-p, ol, ul, pre {
+p, ol, ul, pre, table {
     font-size: 0.9em;
 }
 
@@ -82,7 +82,14 @@ p, ol, ul, pre {
 
 pre, code {
     font-family: Consolas, "DejaVu Sans Mono", "Bitstream Vera Sans Mono" ,monospace;
+}
+
+pre, pre code {
     background-color: #E6F2FF;
+}
+
+code {
+    background-color: #EDF6FF;
 }
 
 pre {
@@ -125,3 +132,12 @@ input[type=button], input[type=submit] {
     color: #0000ff;
 }
 
+table {
+    border-spacing: 0;
+}
+
+td {
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 0.2em 0.5em;
+}
